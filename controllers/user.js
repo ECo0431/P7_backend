@@ -30,20 +30,21 @@ exports.loginUser = async (req, res) => {
         try {
             if (!err) {
                 console.log(rows[0].pass);
-                res.send(rows);
                 bcrypt.compare(req.body.pass, rows[0].pass)
                     .then(valid => {
                         if (!valid) {
                             return res.status(401).json({ error: 'Mot de passe incorrect !' });
                         }
-                        ({
-                            userId: rows[0].pass.id_users,
+                        const result = {
+                            userId: rows[0].id_users,
                             token: jwt.sign(
                                 { userId: req.body.id_users },
                                 "RANDOM_TOKEN_SECRET",
                                 { expiresIn: "24h" }
                             )
-                        });
+                        }
+                        //Affiche le status 201 et le token dans postman
+                        res.status(201).json(result)
                     })
                 // .catch(error => res.status(500).json({ error }));
             } else {
