@@ -60,5 +60,6 @@ VALUES ( 2, 1,'Oh non ! jai parié sur toi pour les matchs à venir !');
 INSERT INTO `Remarks` (`id_users`,`id_posts`, `remark`)
 VALUES ( 2, 2,'Cest une mauvaise blague jai eu peur pour mon argent !');
 
+ALTER TABLE Remarks ADD CONSTRAINT id_posts_cascade FOREIGN KEY (id_posts) REFERENCES Posts(id_posts) ON DELETE CASCADE;
 
 SELECT * FROM remarks;
